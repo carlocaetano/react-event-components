@@ -3,22 +3,23 @@ const { Component, PropTypes } = require('react')
 class KeyEvent extends Component {
   constructor(props) {
     super(props)
-    this.listen = this.listen.bind(this)
+    this.handleTrigger = this.handleTrigger.bind(this)
   }
 
-  listen(event) {
-    if (event.key === this.props.when) {
-      console.log(this.props.trigger)
+  handleTrigger(event) {
+    if (this.props.when === event.key) {
       this.props.do()
+    }
+    if (this.props.when === "*") {
+      this.props.do(event.key)
     }
   }
 
   componentDidMount() {
-    document.addEventListener(this.props.trigger, this.listen)
-  }
+    document.addEventListener(this.props.trigger, this.handleTrigger)}
 
   componentWillUnmount() {
-    document.removeEventListener(this.props.trigger, this.listen)
+    document.removeEventListener(this.props.trigger, this.handleTrigger)
   }
 
   shouldComponentUpdate() {

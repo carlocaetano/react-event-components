@@ -8,7 +8,8 @@ export default class Example extends Component {
       x: 0,
       y: 0,
       totalTime: 0,
-      color: 'rgb(0,0,0)'
+      color: 'rgb(0,0,0)',
+      lastKeyPressed: 'None'
     }
   }
 
@@ -22,6 +23,7 @@ export default class Example extends Component {
     return (
       <div>
         <p>Total time: {Math.floor(this.state.totalTime * 100)/100}</p>
+        <p>Last key pressed: {this.state.lastKeyPressed}</p>
 
         <h1 style={{
           transform: `translate(${x}px, ${y}px)`,
@@ -30,6 +32,7 @@ export default class Example extends Component {
           Try WASD or QEZC
         </h1>
 
+        <KeyDown when="*" do={(key) => this.setState({ lastKeyPressed: key })} />
         <KeyDown when="w" do={() => this.move({ y: y - 10 })} />
         <KeyDown when="a" do={() => this.move({ x: x - 10 })} />
         <KeyDown when="s" do={() => this.move({ y: y + 10 })} />
